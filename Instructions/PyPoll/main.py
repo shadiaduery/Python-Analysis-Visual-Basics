@@ -14,6 +14,7 @@ count = 0
 percent_votes=[]
 candidates_list={}
 winner=[]
+winner1=""
 
 with open(file_to_load) as election_data:
 
@@ -37,9 +38,14 @@ with open(file_to_load) as election_data:
             candidates_list[row[2]] = candidates_list [row[2]] + 1
 
     # Created an empty list named "percent_votes", and by looping through the Dictionary "candidates_list" with the key "candidate" I am accessing the value inside of an equation and loading list with the equation results
+    winner_votes = 0 
+    
     for candidate in candidates_list:
         percent_votes.append(round((candidates_list[candidate]/voter_ids)*100,3))
         winner.append(candidates_list[candidate])
+        if candidates_list[candidate] > winner_votes:
+            winner_votes = candidates_list[candidate]
+            winner1 = candidate   
       
     # for candidate in candidates_list[candidate]:
 
@@ -53,7 +59,7 @@ with open(file_to_load) as election_data:
     print("Li:",percent_votes[2],"%", "(",candidates_list["Li"],")")
     print("O'Tooley:",percent_votes[3],"%", "(",candidates_list["O'Tooley"],")")
     print("_________________________")
-    print("Winner: Khan")
+    print("Winner:", winner1)
 
 
 # Specify the file to write to
@@ -74,5 +80,5 @@ output.write(
     f"O'Tooley:{percent_votes[3]}% \n"
     # {candidates_list['O Tooley']}\n" (I was not able to figure out how to print the key of a dictionary that has an apostrophy)
     f"_________________________\n"
-    f"Winner: Khan"
+    f"Winner: {winner1}"
 )
