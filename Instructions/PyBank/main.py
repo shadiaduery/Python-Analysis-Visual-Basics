@@ -33,13 +33,13 @@ with open(file_to_load) as budget_data:
         # Grab month and store it into a variable and calculate the total number of months
         months = months + 1
 
-        # Grab profit/loss and store it into a variable and calculate the total number of months
+        # Grab profit/loss and store it into a variable and calculate the profit/loss total
         pl_total = pl_total + int(row[1])
 
         # Calculate profit/loss change
         if not first_time:
             pl_change = int(row[1])-previous
-            total_pl_change = total_pl_change + pl_change
+            total_pl_change = round(total_pl_change + pl_change)
 
             # If the current change is greater than previous change 
             if pl_change > greatest_pl_increase:
@@ -58,7 +58,7 @@ with open(file_to_load) as budget_data:
     print("_________________________")
     print("Total Months: ",(months))
     print("Total: $",(pl_total))
-    print("Average Change: ", (total_pl_change/months - 1))
+    print("Average Change: ", round(total_pl_change/months - 1))
     print("Greatest Increase in Profits: ",greatest_month_increase, greatest_pl_increase)
     print("Greatest Decrease in Profits: ",greatest_month_decrease, greatest_pl_decrease)
 
@@ -66,7 +66,11 @@ with open(file_to_load) as budget_data:
 file_to_output = os.path.join('analysis','output_budget_data.txt')
 
 # Open the file using the "write" mode. Specify the variable to hold the contents
-output = open(output_path, 'w')
-output.write{"Financial Analysis\n"}
-output.write{"____________________________\n"}
-output.write{"Financial Analysis\n"}
+output = open(file_to_output, 'w')
+output.write("Financial Analysis\n")
+output.write("____________________________\n")
+output.write(f"Total Months: {months}\n")
+output.write(f"Total: $ {pl_total}\n")
+output.write(f"Average Change:{total_pl_change/months - 1}\n")
+output.write(f"Greatest Increase in Profits: {greatest_month_increase, greatest_pl_increase}\n")
+output.write(f"Greatest Decrease in Profits: {greatest_month_decrease, greatest_pl_decrease}\n")
